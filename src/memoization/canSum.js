@@ -8,6 +8,20 @@
   you may assume that all input numbers are non-negative.
 */
 
-const canSum(targetSum, numbers) => {
-  // implementation here
+// m = target sum
+// n = array length
+// brute force solution: time O(n^m) space O(m)
+const canSum = (targetSum, numbers) => {
+  if (targetSum === 0) return true;
+  if (targetSum < 0) return false;
+
+  for (let num of number) {
+    const remainder = targetSum - num;
+    if (canSum(remainder, numbers) === true) return true;
+  }
+  return false;
 }
+
+console.log(canSum(7, [5, 3, 2]));
+console.log(canSum(7, [4, 2]));
+console.log(canSum(9, [4, 2, 1, 6, 3]));
