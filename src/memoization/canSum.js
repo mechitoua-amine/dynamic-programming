@@ -11,14 +11,31 @@
 // m = target sum
 // n = array length
 // brute force solution: time O(n^m) space O(m)
-const canSum = (targetSum, numbers) => {
+// const canSum = (targetSum, numbers) => {
+//   if (targetSum === 0) return true;
+//   if (targetSum < 0) return false;
+
+//   for (let num of number) {
+//     const remainder = targetSum - num;
+//     if (canSum(remainder, numbers) === true) return true;
+//   }
+//   return false;
+// }
+
+// the memoized solution
+const canSum = (targetSum, numbers, memo = {}) => {
+  if (targetSum in memo) return memo[targetSum];
   if (targetSum === 0) return true;
   if (targetSum < 0) return false;
 
   for (let num of number) {
     const remainder = targetSum - num;
-    if (canSum(remainder, numbers) === true) return true;
+    if (canSum(remainder, numbers, memo) === true) {
+      memo[targetSum] = true;
+      return true;
+    }
   }
+  memo[targetSum] = false;
   return false;
 }
 
