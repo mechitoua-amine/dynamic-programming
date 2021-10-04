@@ -14,17 +14,40 @@
   Time: O(n^m * m)
   Space: O(m * n)
  */
-const canConstruct = (target, wordBank) => {
+// const canConstruct = (target, wordBank) => {
+//   if (target === "") return true;
+//   for (let word of wordBank) {
+//     if (target.indexOf(word) === 0) {
+//       const suffix = target.slice(word.length);
+//       if (canConstruct(suffix, wordBank) === true) return true;
+//     }
+//   }
+
+//   return false;
+// };
+
+/*
+  Memoization solution
+  m = target.length
+  n = wordBank.length
+  Time: O(n * m^2)
+  Space: O(m^2)
+ */
+const canConstruct = (target, wordBank, memo = {}) => {
+  if (target in memo) return memo[target];
   if (target === "") return true;
   for (let word of wordBank) {
     if (target.indexOf(word) === 0) {
       const suffix = target.slice(word.length);
-      if (canConstruct(suffix, wordBank) === true) return true;
+      if (canConstruct(suffix, wordBank, memo) === true) {
+        memo[target] = true;
+        return true;
+      }
     }
   }
-
+  memo[target] = false;
   return false;
 };
 
-console.log("abcdef", ["ab", "abc", "cd", "def", "abcd"]);
-console.log("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]);
+console.log(canConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
+console.log(canConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
