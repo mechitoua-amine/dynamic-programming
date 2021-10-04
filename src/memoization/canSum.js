@@ -23,6 +23,12 @@
 // }
 
 // the memoized solution
+/*
+  m = target sum
+  n = array length
+  O(m*n) time
+  O(m) space
+ */
 const canSum = (targetSum, numbers, memo = {}) => {
   if (targetSum in memo) return memo[targetSum];
   if (targetSum === 0) return true;
