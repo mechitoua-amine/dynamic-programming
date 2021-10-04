@@ -31,7 +31,7 @@
 
 /*
   memoized solution
-  O(n*m^2) time
+  O(n * m^2) time
   O(m^2) space
  */
 const howSum = (targetSum, numbers, memo = {}) => {
