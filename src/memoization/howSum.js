@@ -15,7 +15,7 @@
   O(n^m * m) time
   O(m) space
  */
-const howSum = (targetSum, numbers) => {
+/*const howSum = (targetSum, numbers) => {
   if (targetSum === 0) return [];
   if (targetSum < 0) return null;
 
@@ -26,5 +26,27 @@ const howSum = (targetSum, numbers) => {
       return [...result, num];
     }
   }
+  return null;
+}*/
+
+/*
+  memoized solution
+  O(n*m^2) time
+  O(m^2) space
+ */
+const howSum = (targetSum, numbers, memo = {}) => {
+  if (targetSum in memo) memo[targetSum];
+  if (targetSum === 0) return [];
+  if (targetSum < 0) return null;
+
+  for (let num of numbers) {
+    const remainder = targetSum - num;
+    const result = howSum(remainder, numbers, memo);
+    if (result !== null) {
+      memo[targetSum] = [...result, num];
+      return memo[targetSum];
+    }
+  }
+  memo[targetSum] = null;
   return null;
 }
