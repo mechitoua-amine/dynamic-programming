@@ -36,6 +36,13 @@
 // };
 
 
+/*
+  memoized solution
+  m = targetSum
+  n = array's length
+  Time: O(m^2 * n)
+  Space: O(m^2)
+ */
 const bestSum = (targetSum, numbers, memo = {}) => {
   if (targetSum in memo) return memo[targetSum];
   if (targetSum === 0) return [];
