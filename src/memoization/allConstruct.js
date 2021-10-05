@@ -9,10 +9,32 @@
   You may reuse elements of wordBank as many times as needed
  */
 
+/*
+  Brute force solution
+  m = target length
+  n = wordBank length
+  Time: O(n^m)
+  Space: O(m)
+ */
 const allConstruct = (target, wordBank) => {
-  // implementation
+  if (target === "") return [
+    []
+  ];
+
+  const result = []
+
+  for (let word of wordBank) {
+    if (target.indexOf(word) === 0) {
+      const suffix = target.slice(word.length);
+      const suffixWays = allConstruct(suffix, wordBank);
+      const targetWays = suffixWays.map(way => [word, ...way]);
+      result.push(...targetWays);
+    }
+  }
+
+  return result;
 }
 
-console.log(countConstruct("purple", ["purp", "p", "ur", "le", "purpl"]));
-console.log(countConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
-console.log(countConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
+console.log(allConstruct("purple", ["purp", "p", "ur", "le", "purpl"]));
+console.log(allConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd", "ef", "c"]));
+console.log(allConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
