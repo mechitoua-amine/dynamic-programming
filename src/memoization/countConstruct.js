@@ -7,10 +7,21 @@
   You may reuse elemnts of wordBank as many times as needed
  */
 
+
+// brute force solution
 const countConstruct = (target, wordBank) => {
-  // implementation here
+  if (target === '') return 1;
+
+  let totalcount = 0;
+  for (let word of wordBank) {
+    if (target.indexOf(word) === 0) {
+      const numOfWays = countConstruct(target.slice(word.length), wordBank)
+      totalcount += numOfWays;
+    }
+  }
+  return totalcount;
 }
 
-console.log(countConstruct("purple", ["puep", "p", "ur", "le", "purpl"]));
+console.log(countConstruct("purple", ["purp", "p", "ur", "le", "purpl"]));
 console.log(countConstruct("abcdef", ["ab", "abc", "cd", "def", "abcd"]));
 console.log(countConstruct("skateboard", ["bo", "rd", "ate", "t", "ska", "sk", "boar"]));
